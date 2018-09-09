@@ -1,0 +1,21 @@
+{
+  "name": "picohtml",
+  "version": "0.0.1",
+  "description": "HTML template strings",
+  "main": "./dist/picohtml.js",
+  "repository": "https://github.com/stepanvanzuriak/picohtml",
+  "author": "stepanvanzuriak <stepanvanzuriak@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "parcel": "^1.9.7",
+    "rimraf": "^2.6.2",
+    "typescript": "^3.0.3"
+  },
+  "scripts": {
+    "dev": "parcel watch src/index.ts --out-file picohtml.js",
+    "build": "parcel build src/index.ts --out-file picohtml.js",
+    "clean": "rimraf dist",
+    "prepublish": "npm run clean && npm run build"
+  }
+}
