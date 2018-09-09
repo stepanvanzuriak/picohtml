@@ -36,6 +36,7 @@ export const htmlToElements = (html, events) => {
 
     element.addEventListener(
       name,
+      // tslint:disable-next-line
       typeof event !== "function" ? () => {} : event
     );
   });
