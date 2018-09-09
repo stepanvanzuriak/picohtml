@@ -14,7 +14,7 @@
   },
   "scripts": {
     "dev": "parcel watch src/index.ts --out-file picohtml.js",
-    "build": "parcel build src/index.ts --out-file picohtml.js",
+    "build": "parcel build src/index.ts --out-file picohtml.js --experimental-scope-hoisting",
     "clean": "rimraf dist",
     "prepublish": "npm run clean && npm run build"
   }
