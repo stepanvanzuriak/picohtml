@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test document</title>
+</head>
+
+<body>
+    <script src="picohtml.js"></script>
+
+    <script>
+        const p = document.createElement("p");
+        p.className = "test";
+        p.innerHTML = "Test";
+
+        const click = () => document.body.appendChild(p);
+
+        const el = html`<button class="btn" onclick=${click}>Hello planet</button>`;
+
+        render(el, document.body);
+    </script>
+</body>
+
+</html>

@@ -19,7 +19,6 @@ export const html = (literal, ...values) => {
 
     if (lit.endsWith("=")) {
       events.push(val);
-      val = `"${val}"`;
     }
 
     result += lit;

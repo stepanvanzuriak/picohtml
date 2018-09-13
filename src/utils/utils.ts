@@ -5,9 +5,11 @@ const loopDOMAttributes = (dom, callback) => {
     for (const attr of attrs) {
       const name = attr.name;
 
-      dom.removeAttribute(name);
+      if (name.startsWith("on")) {
+        dom.removeAttribute(name);
 
-      callback(name.slice(2), dom);
+        callback(name.slice(2), dom);
+      }
     }
   }
 

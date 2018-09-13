@@ -8,15 +8,29 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
+    "http-server": "^0.11.1",
+    "jest": "^23.6.0",
+    "jest-cli": "^23.6.0",
     "parcel": "^1.9.7",
+    "puppeteer": "^1.8.0",
     "rimraf": "^2.6.2",
     "typescript": "^3.0.3"
   },
-  "keywords": ["pico", "html", "dom", "render", "template", "template-string"],
+  "keywords": [
+    "pico",
+    "html",
+    "dom",
+    "render",
+    "template",
+    "template-string"
+  ],
   "scripts": {
     "dev": "parcel watch src/index.ts --out-file picohtml.js",
     "build": "parcel build src/index.ts --out-file picohtml.js --experimental-scope-hoisting",
     "clean": "rimraf dist",
-    "prepublish": "npm run clean && npm run build"
+    "clean:test": "rimraf test/picohtml.js",
+    "build:test": "parcel build src/index.ts --out-dir test --out-file picohtml.js --experimental-scope-hoisting",
+    "test": "npm run clean:test && npm run build:test && jest",
+    "prepublish": "npm run test && npm run clean && npm run build"
   }
 }
