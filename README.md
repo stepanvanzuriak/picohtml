@@ -18,6 +18,17 @@ const el = html`<h1>Hello planet</h1>`;
 render(el, document.body);
 ```
 
+## Attaching event listeners
+
+```js
+import { html, render } from "picohtml";
+
+const click = () => alert("Hello planet!");
+const el = html`<button onclick=${click}>Click</button>`;
+
+render(el, document.body);
+```
+
 # See Also
 
 - [nanohtml](https://github.com/choojs/nanohtml)

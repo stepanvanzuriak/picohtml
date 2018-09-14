@@ -17,12 +17,14 @@ export const html = (literal, ...values) => {
       lit = lit.slice(0, -1);
     }
 
+    result += lit;
+
     if (lit.endsWith("=")) {
       events.push(val);
+      result += `"${val}"`;
+    } else {
+      result += val;
     }
-
-    result += lit;
-    result += val;
   });
 
   result += raw[raw.length - 1];
