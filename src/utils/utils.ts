@@ -1,4 +1,4 @@
-const loopDOMAttributes = (dom, callback) => {
+const loopDOMAttributes = (dom: any, callback: (name, dom) => void) => {
   const attrs = dom.attributes;
 
   if (attrs && attrs.length) {
@@ -18,7 +18,13 @@ const loopDOMAttributes = (dom, callback) => {
   }
 };
 
-export const htmlEscape = str =>
+export const cleanNode = (node: Node) => {
+  while (node.firstChild) {
+    node.removeChild(node.firstChild);
+  }
+};
+
+export const htmlEscape = (str: string) =>
   str
     .replace(/&/g, "&amp;")
     .replace(/>/g, "&gt;")
@@ -27,7 +33,7 @@ export const htmlEscape = str =>
     .replace(/'/g, "&#39;")
     .replace(/`/g, "&#96;");
 
-export const htmlToElements = (html, events) => {
+export const htmlToElements = (html: string, events: any[]) => {
   const template = document.createElement("template");
   template.innerHTML = html.trim();
 
