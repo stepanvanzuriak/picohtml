@@ -6,17 +6,17 @@ export const Parts = new WeakMap<Node, Template>();
 export const render = (template: Template, node: Node) => {
   const part = Parts.get(node);
 
-  if (part === undefined) {
+  if (part) {
+    if (!part.checkValues(template.values)) {
+      cleanNode(node);
+      node.appendChild(toDOM(part.result, part.events));
+    }
+  } else {
     const { result, events } = template.getResult();
     Parts.set(node, template);
 
     cleanNode(node);
 
     node.appendChild(toDOM(result, events));
-  } else {
-    if (!part.checkValues(template.values)) {
-      cleanNode(node);
-      node.appendChild(toDOM(part.result, part.events));
-    }
   }
 };
