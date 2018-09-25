@@ -42,6 +42,18 @@ describe("Basic tests", () => {
     20000
   );
 
+  it(
+    "raw",
+    async () => {
+      await page.goto("http://localhost:8080/raw.html");
+
+      const html = await page.$eval(".test", e => e.innerHTML);
+
+      expect(html).toBe("<p>Text</p> <p>HTML Text</p>");
+    },
+    20000
+  );
+
   afterAll(() => {
     browser.close();
     server.close();
