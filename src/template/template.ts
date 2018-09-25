@@ -4,38 +4,38 @@ class Template {
   public literal: string[];
   public values: any[];
   public result: string;
-  public events: any[];
+  public events: Events;
 
-  constructor(literal: string[], values: any[]) {
+  constructor(literal: string[], values: Events) {
     this.literal = literal;
     this.values = values;
     this.result = "";
     this.events = [];
   }
 
-  public checkValues(newValues: any[]) {
+  public checkValues(values: Events) {
     if (
       !(
-        newValues.length === this.values.length &&
-        newValues.every((value, index) => value === this.values[index])
+        values.length === this.values.length &&
+        values.every((value, index) => value === this.values[index])
       )
     ) {
-      this.values = newValues;
-      this.calcEventsAndResult();
+      this._update(values);
+      return false;
     }
   }
 
   public getResult() {
     if (this.result === "") {
-      this.calcEventsAndResult();
+      this._update();
     }
     return { result: this.result, events: this.events };
   }
 
-  private calcEventsAndResult() {
+  private _update(values = this.values) {
     this.result = "";
 
-    this.values.forEach((val: any, i) => {
+    values.forEach((val: any, i) => {
       let lit = this.literal[i];
 
       if (Array.isArray(val)) {

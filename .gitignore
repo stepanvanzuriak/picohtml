@@ -2,3 +2,4 @@ node_modules
 dist
 .cache
 test/picohtml.js
+test/index.html

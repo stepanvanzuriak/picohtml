@@ -1,23 +1,22 @@
 import Template from "../template/template";
-import { cleanNode, htmlToElements } from "../utils/utils";
+import { cleanNode, toDOM } from "../utils/utils";
 
 export const Parts = new WeakMap<Node, Template>();
 
-export const render = (template: Template, node) => {
+export const render = (template: Template, node: Node) => {
   const part = Parts.get(node);
 
   if (part === undefined) {
-    Parts.set(node, template);
     const { result, events } = template.getResult();
+    Parts.set(node, template);
 
     cleanNode(node);
 
-    node.appendChild(htmlToElements(result, events));
+    node.appendChild(toDOM(result, events));
   } else {
-    part.checkValues(template.values);
-
-    cleanNode(node);
-
-    node.appendChild(htmlToElements(part.result, part.events));
+    if (!part.checkValues(template.values)) {
+      cleanNode(node);
+      node.appendChild(toDOM(part.result, part.events));
+    }
   }
 };

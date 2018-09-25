@@ -29,7 +29,23 @@ const el = html`<button onclick=${click}>Click</button>`;
 render(el, document.body);
 ```
 
-# See Also
+## Insert template literal and picohtml literal
+
+```js
+import { html, render, raw } from "picohtml";
+
+const text = `<p>Text</p>`;
+const htmlText = () => html`<p>HTML Text</p>`;
+const el = html`<div>${text} ${raw(htmlText())}</div>`;
+
+render(el, document.body);
+```
+
+## License
+
+[MIT](./LICENSE)
+
+## See Also
 
 - [nanohtml](https://github.com/choojs/nanohtml)
 - [lit-html](https://github.com/Polymer/lit-html)

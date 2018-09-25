@@ -9,12 +9,15 @@
 </head>
 
 <body>
+
     <div id="root"></div>
     <script src="../dist/picohtml.js"></script>
     <script>
-        const test = (a) => html`<p>${a}asdasd</p>`
+        const text = `<p>Text</p>`;
+        const htmlText = () => html`<p>HTML Text</p>`;
+        const el = html`<div>${text} ${raw(htmlText())}</div>`;
 
-        render(test(12), document.querySelector('#root'))
+        render(el, document.body);
 
 
     </script>

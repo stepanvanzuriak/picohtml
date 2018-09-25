@@ -1,9 +1,9 @@
-const loopDOMAttributes = (dom: any, callback: (name, dom) => void) => {
+const loopDOMAttributes = (dom: Element, callback: (name, dom) => void) => {
   const attrs = dom.attributes;
 
   if (attrs && attrs.length) {
-    for (const attr of attrs) {
-      const name = attr.name;
+    for (let i = 0; i < attrs.length; i++) {
+      const name = attrs.item(i).name;
 
       if (name.startsWith("on")) {
         dom.removeAttribute(name);
@@ -14,9 +14,12 @@ const loopDOMAttributes = (dom: any, callback: (name, dom) => void) => {
   }
 
   if (dom.childNodes.length) {
-    loopDOMAttributes(dom.firstChild, callback);
+    loopDOMAttributes(dom.firstChild as Element, callback);
   }
 };
+
+const replace = (str: string, from: string[], to: string[]) =>
+  from.map((e, i) => str.replace(new RegExp(e), to[i]));
 
 export const cleanNode = (node: Node) => {
   while (node.firstChild) {
@@ -25,21 +28,17 @@ export const cleanNode = (node: Node) => {
 };
 
 export const htmlEscape = (str: string) =>
-  str
-    .replace(/&/g, "&amp;")
-    .replace(/>/g, "&gt;")
-    .replace(/</g, "&lt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;")
-    .replace(/`/g, "&#96;");
+  replace(
+    str,
+    ["&", ">", "<", '"', "'", "`"],
+    ["&amp;", "&gt;", "&quot;", "&#39;", "&#39;", "&#96;"]
+  );
 
-export const htmlToElements = (html: string, events: any[]) => {
+export const toDOM = (html: string, events: Events) => {
   const template = document.createElement("template");
   template.innerHTML = html.trim();
 
-  const node = template.content.firstChild;
-
-  loopDOMAttributes(node, (name, element) => {
+  loopDOMAttributes(template.content.firstChild as Element, (name, element) => {
     const event = events.shift();
 
     element.addEventListener(
@@ -49,5 +48,5 @@ export const htmlToElements = (html: string, events: any[]) => {
     );
   });
 
-  return node;
+  return template.content.firstChild;
 };

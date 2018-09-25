@@ -1,41 +1,49 @@
 const puppeteer = require("puppeteer");
 const httpServer = require("http-server");
 
-test(
-  "renders correctly",
-  async () => {
-    const server = httpServer.createServer({ root: __dirname });
-    server.listen(8080);
+let browser;
+let page;
+const width = 600;
+const height = 400;
+const server = httpServer.createServer({ root: __dirname });
+server.listen(8080);
 
-    let browser = await puppeteer.launch({ args: ["--no-sandbox"] });
-    let page = await browser.newPage();
+describe("Basic tests", () => {
+  beforeAll(async () => {
+    browser = await puppeteer.launch({
+      slowMo: 80,
+      args: ["--no-sandbox", `--window-size=${width},${height}`]
+    });
+    page = await browser.newPage();
+  });
 
-    await page.goto("http://localhost:8080/basic.html");
-    await page.waitForSelector(".header");
+  it(
+    "renders correctly",
+    async () => {
+      await page.goto("http://localhost:8080/basic.html");
+      await page.waitForSelector(".header");
 
-    const html = await page.$eval(".header", e => e.innerHTML);
-    expect(html).toBe("Hello planet");
+      const html = await page.$eval(".header", e => e.innerHTML);
+      expect(html).toBe("Hello planet");
+    },
+    20000
+  );
 
-    server.close();
+  it(
+    "onclick",
+    async () => {
+      await page.goto("http://localhost:8080/onclick.html");
+      await page.click(".btn");
+
+      const html = await page.$eval(".test", e => e.innerHTML);
+
+      expect(html).toBe("Test");
+    },
+    20000
+  );
+
+  afterAll(() => {
     browser.close();
-  },
-  20000
-);
-
-test("onclick", async () => {
-  const server = httpServer.createServer({ root: __dirname });
-  server.listen(8080);
-
-  let browser = await puppeteer.launch({ args: ["--no-sandbox"] });
-  let page = await browser.newPage();
-
-  await page.goto("http://localhost:8080/onclick.html");
-  await page.click(".btn");
-
-  const html = await page.$eval(".test", e => e.innerHTML);
-
-  expect(html).toBe("Test");
-
-  browser.close();
-  server.close();
+    server.close();
+  });
 });
