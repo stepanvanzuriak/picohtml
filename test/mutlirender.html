@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <div id="toor"></div>
+
+    <script src="picohtml.js"></script>
+    <script>
+        const f = (num) => html`<p class="test">${num}</p>`;
+        const f2 = (num) => html`<p class="test2">${num}</p>`;
+
+
+        render(f(12), document.querySelector("#root"))
+        render(f(12), document.querySelector("#root"))
+
+        render(f2(12), document.querySelector("#toor"))
+        render(f2(13), document.querySelector("#toor"))
+        render(f2(14), document.querySelector("#toor"))
+    </script>
+</body>
+
+</html>

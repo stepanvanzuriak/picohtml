@@ -1,25 +1,20 @@
-import { htmlEscape } from "../utils/utils";
+import { htmlEscape, same } from "../utils/utils";
 
 class Template {
-  public literal: string[];
   public values: any[];
   public result: string;
   public events: Events;
+  private lit: string[];
 
-  constructor(literal: string[], values: Events) {
-    this.literal = literal;
+  constructor(literal: string[], values: any[]) {
+    this.lit = literal;
     this.values = values;
     this.result = "";
     this.events = [];
   }
 
-  public checkValues(values: Events) {
-    if (
-      !(
-        values.length === this.values.length &&
-        values.every((value, index) => value === this.values[index])
-      )
-    ) {
+  public checkValues(values: any[]) {
+    if (!same(values, this.values)) {
       this._update(values);
       return false;
     }
@@ -36,7 +31,7 @@ class Template {
     this.result = "";
 
     values.forEach((val: any, i) => {
-      let lit = this.literal[i];
+      let lit = this.lit[i];
 
       if (Array.isArray(val)) {
         val = val.join("");
@@ -57,7 +52,7 @@ class Template {
       }
     });
 
-    this.result += this.literal[this.literal.length - 1];
+    this.result += this.lit[this.lit.length - 1];
   }
 }
 

@@ -3,59 +3,69 @@ const httpServer = require("http-server");
 
 let browser;
 let page;
-const width = 600;
-const height = 400;
 const server = httpServer.createServer({ root: __dirname });
 server.listen(8080);
 
-describe("Basic tests", () => {
-  beforeAll(async () => {
-    browser = await puppeteer.launch({
-      slowMo: 80,
-      args: ["--no-sandbox", `--window-size=${width},${height}`]
-    });
-    page = await browser.newPage();
+beforeAll(async () => {
+  browser = await puppeteer.launch({
+    args: ["--no-sandbox"]
   });
+});
 
-  it(
-    "renders correctly",
+afterAll(() => {
+  server.close();
+  browser.close();
+});
+
+describe("Basic test", () => {
+  test(
+    "basic page",
     async () => {
+      page = await browser.newPage();
       await page.goto("http://localhost:8080/basic.html");
-      await page.waitForSelector(".header");
 
-      const html = await page.$eval(".header", e => e.innerHTML);
+      html = await page.$eval(".header", e => e.innerHTML);
+
       expect(html).toBe("Hello planet");
     },
     20000
   );
+});
 
-  it(
+describe("Onclick test", () => {
+  test(
     "onclick",
     async () => {
       await page.goto("http://localhost:8080/onclick.html");
       await page.click(".btn");
 
-      const html = await page.$eval(".test", e => e.innerHTML);
-
+      html = await page.$eval(".test", e => e.innerHTML);
       expect(html).toBe("Test");
     },
     20000
   );
+});
 
-  it(
-    "raw",
+describe("Mutlirender test", () => {
+  test(
+    "Mutlirender",
     async () => {
-      await page.goto("http://localhost:8080/raw.html");
+      await page.goto("http://localhost:8080/mutlirender.html");
 
-      const html = await page.$eval(".test", e => e.innerHTML);
+      test = await page.$eval(".test", e => e.innerHTML);
+      test2 = await page.$eval(".test2", e => e.innerHTML);
 
-      expect(html).toBe("<p>Text</p> <p>HTML Text</p>");
+      expect(test).toBe("12");
+      expect(test2).toBe("14");
     },
     20000
   );
+});
 
-  afterAll(() => {
-    browser.close();
-    server.close();
+describe("Raw test", () => {
+  test("raw", async () => {
+    await page.goto("http://localhost:8080/raw.html");
+    html = await page.$eval(".test", e => e.innerHTML);
+    expect(html).toBe("<p>Text</p> <p>HTML Text</p>");
   });
 });

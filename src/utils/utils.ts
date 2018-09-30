@@ -14,16 +14,21 @@ const loopDOMAttributes = (dom: Element, callback: (name, dom) => void) => {
   }
 
   if (dom.childNodes.length) {
-    loopDOMAttributes(dom.firstChild as Element, callback);
+    loopDOMAttributes(first(dom) as Element, callback);
   }
 };
 
 const replace = (str: string, from: string[], to: string[]) =>
   from.map((e, i) => str.replace(new RegExp(e), to[i]));
 
+const first = (element: Node) => element.firstChild;
+
+export const same = (a: any[], b: any[]) =>
+  a.length === b.length && a.every((e, i) => e === b[i]);
+
 export const cleanNode = (node: Node) => {
-  while (node.firstChild) {
-    node.removeChild(node.firstChild);
+  while (first(node)) {
+    node.removeChild(first(node));
   }
 };
 
@@ -38,7 +43,7 @@ export const toDOM = (html: string, events: Events) => {
   const template = document.createElement("template");
   template.innerHTML = html.trim();
 
-  loopDOMAttributes(template.content.firstChild as Element, (name, element) => {
+  loopDOMAttributes(first(template.content) as Element, (name, element) => {
     const event = events.shift();
 
     element.addEventListener(
@@ -48,5 +53,5 @@ export const toDOM = (html: string, events: Events) => {
     );
   });
 
-  return template.content.firstChild;
+  return first(template.content);
 };
