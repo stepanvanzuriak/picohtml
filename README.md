@@ -1,6 +1,6 @@
 # PICOHTML
 
-HTML template strings
+~3KB HTML template strings
 
 # Installation
 
