@@ -17,7 +17,7 @@ afterAll(() => {
   browser.close();
 }, 20000);
 
-describe("Basic test", () => {
+describe("Basic test", async () => {
   test(
     "basic page",
     async () => {
