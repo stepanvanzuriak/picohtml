@@ -3,3 +3,4 @@ dist
 .cache
 test/picohtml.js
 test/index.html
+yarn-error.log
