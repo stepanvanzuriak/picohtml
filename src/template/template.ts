@@ -1,4 +1,4 @@
-import { htmlEscape, same } from "../utils/utils";
+import { htmlEscape, replace, same } from "../utils/utils";
 
 class Template {
   public values: any[];
@@ -46,7 +46,7 @@ class Template {
 
       if (lit.endsWith("=")) {
         this.events.push(val);
-        this.result += `"${val}"`;
+        this.result += `"${replace(val.toString(), ["'", '"'], [`\'`, `'`])}"`;
       } else {
         this.result += val;
       }

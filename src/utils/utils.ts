@@ -14,12 +14,21 @@ const loopDOMAttributes = (dom: Element, callback: (name, dom) => void) => {
   }
 
   if (dom.childNodes.length) {
-    loopDOMAttributes(first(dom) as Element, callback);
+    // tslint:disable-next-line
+    for (let element = 0; element < dom.children.length; element++) {
+      loopDOMAttributes(dom.children[element] as Element, callback);
+    }
   }
 };
 
-const replace = (str: string, from: string[], to: string[]) =>
-  from.map((e, i) => str.replace(new RegExp(e), to[i]));
+export const replace = (str: string, from: string[], to: string[]) => {
+  let newString = str;
+  from.map((e, i) => {
+    newString = newString.replace(new RegExp(e, "g"), to[i]);
+  });
+
+  return newString;
+};
 
 const first = (element: Node) => element.firstChild;
 
