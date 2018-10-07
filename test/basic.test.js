@@ -15,7 +15,7 @@ beforeAll(async () => {
 afterAll(() => {
   server.close();
   browser.close();
-});
+}, 20000);
 
 describe("Basic test", () => {
   test(
