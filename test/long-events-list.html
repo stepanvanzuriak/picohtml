@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="root"></div>
+    <p class="change"></p>
+    <script src="./picohtml.js"></script>
+    <script>
+        const change = () => {
+            let el = document.querySelector(".change")
+            el.innerHTML = "CHANGED"
+        }
+        const className = "test"
+        const el = html`<button class=${className} key=${className} onclick=${change} useless=${className + 12}>H</button>`
+
+        render(el, document.querySelector(".root"))
+    </script>
+</body>
+
+</html>

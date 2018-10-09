@@ -85,6 +85,18 @@ describe(
       },
       20000
     );
+
+    test(
+      "long events list",
+      async () => {
+        await page.goto("http://localhost:8080/long-events-list.html");
+
+        await page.click(".test");
+        html = await page.$eval(".change", e => e.innerHTML);
+        expect(html).toBe("CHANGED");
+      },
+      2000
+    );
   },
   20000
 );

@@ -56,7 +56,15 @@ class Template {
       this.result += lit;
 
       if (lit.endsWith("=")) {
-        this.events.push(val);
+        if (
+          lit
+            .split(" ")
+            .pop()
+            .startsWith("on")
+        ) {
+          this.events.push(val);
+        }
+
         this.result += `"${replace(val.toString(), ["'", '"'], [`\'`, `'`])}"`;
       } else {
         this.result += val;
