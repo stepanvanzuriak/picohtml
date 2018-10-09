@@ -4,6 +4,7 @@ class Template {
   public values: any[];
   public result: string;
   public events: Events;
+  public isRaw: boolean;
   private lit: string[];
 
   constructor(literal: string[], values: any[]) {
@@ -11,6 +12,7 @@ class Template {
     this.values = values;
     this.result = "";
     this.events = [];
+    this.isRaw = false;
   }
 
   public checkValues(values: any[]) {
@@ -27,9 +29,17 @@ class Template {
     return { result: this.result, events: this.events };
   }
 
+  public __forceUpdate() {
+    this._update();
+  }
+
   private _update(values = this.values) {
     this.result = "";
     this.events = [];
+
+    if (this.isRaw) {
+      this.result += "\n<!-- RAW_START -->\n";
+    }
 
     values.forEach((val: any, i) => {
       let lit = this.lit[i];
@@ -54,6 +64,10 @@ class Template {
     });
 
     this.result += this.lit[this.lit.length - 1];
+
+    if (this.isRaw) {
+      this.result += "\n<!-- RAW_END -->\n";
+    }
   }
 }
 
