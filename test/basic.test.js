@@ -64,7 +64,9 @@ describe(
       async () => {
         await page.goto("http://localhost:8080/raw.html");
         html = await page.$eval(".test", e => e.innerHTML);
-        expect(html).toBe("<p>Text</p> <p>HTML Text</p>");
+        expect(html).toBe(
+          "<p>Text</p>\n<!-- RAW_START -->\n<p>HTML Text</p>\n<!-- RAW_END -->\n"
+        );
       },
       20000
     );

@@ -1,4 +1,3 @@
 import Template from "../template/template";
 
-export const html = (literal: any, ...values) =>
-  new Template(literal.raw, values);
+export const html = (lit: any, ...values) => new Template(lit.raw, values);

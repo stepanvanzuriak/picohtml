@@ -3,7 +3,7 @@ import { addToRawEvents } from "../utils/utils";
 
 export const raw = (template: Template) => {
   template.isRaw = true;
-  template.__forceUpdate();
+  template.forceUpdate();
 
   const { result, events } = template.getResult();
 

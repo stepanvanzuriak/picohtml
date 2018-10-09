@@ -1,7 +1,7 @@
 import Template from "../template/template";
 import { cleanNode, toDOM } from "../utils/utils";
 
-export const Parts = new WeakMap<Node, Template>();
+const Parts = new WeakMap<Node, Template>();
 
 export const render = (template: Template, node: Node) => {
   const part = Parts.get(node);

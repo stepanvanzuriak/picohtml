@@ -29,7 +29,7 @@ class Template {
     return { result: this.result, events: this.events };
   }
 
-  public __forceUpdate() {
+  public forceUpdate() {
     this._update();
   }
 
