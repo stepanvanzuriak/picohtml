@@ -29,6 +29,7 @@ class Template {
 
   private _update(values = this.values) {
     this.result = "";
+    this.events = [];
 
     values.forEach((val: any, i) => {
       let lit = this.lit[i];
