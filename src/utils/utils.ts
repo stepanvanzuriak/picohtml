@@ -1,3 +1,7 @@
+const first = (element: Node) => element.firstChild;
+
+let rawEvents = [];
+
 const loopDOMAttributes = (
   dom: Element,
   callback: (name, dom, raw?) => void,
@@ -17,31 +21,22 @@ const loopDOMAttributes = (
     }
   }
 
-  if (dom.childNodes.length) {
-    // tslint:disable-next-line
-    for (let element = 0; element < dom.childNodes.length; element++) {
-      const next = dom.childNodes[element];
-      if (next.nodeType === 1 || next.nodeType === 8) {
-        if (next.nodeType === 8) {
-          if (next.data.trim() === "RAW_START") {
-            raw = true;
-          }
-
-          if (next.data.trim() === "RAW_END") {
-            raw = false;
-          }
+  dom.childNodes.forEach(child => {
+    if (child.nodeType === 1 || child.nodeType === 8) {
+      if (child.nodeType === 8) {
+        if (child.data.trim() === "RAW_START") {
+          raw = true;
         }
-        loopDOMAttributes(dom.childNodes[element] as Element, callback, raw);
+
+        if (child.data.trim() === "RAW_END") {
+          raw = false;
+        }
       }
+      loopDOMAttributes(child as Element, callback, raw);
     }
-  }
+  });
 };
 
-const first = (element: Node) => element.firstChild;
-
-let rawEvents = [];
-
-// tslint:disable-next-line:arrow-parens
 export const addToRawEvents = events => {
   rawEvents = [...rawEvents, ...events];
 };
@@ -84,7 +79,7 @@ export const toDOM = (html: string, events: Events) => {
 
       element.addEventListener(
         name,
-        // tslint:disable-next-line
+        // tslint:disable-next-line:no-empty
         typeof event !== "function" ? () => {} : event
       );
     }
