@@ -21,7 +21,7 @@ describe(
   "Tests",
   async () => {
     test(
-      "basic page",
+      "Basic",
       async () => {
         page = await browser.newPage();
         await page.goto("http://localhost:8080/basic.html");
@@ -34,7 +34,7 @@ describe(
     );
 
     test(
-      "onclick",
+      "Onclick",
       async () => {
         await page.goto("http://localhost:8080/onclick.html");
         await page.click(".btn");
@@ -60,7 +60,7 @@ describe(
     );
 
     test(
-      "raw",
+      "Raw",
       async () => {
         await page.goto("http://localhost:8080/raw.html");
         html = await page.$eval(".test", e => e.innerHTML);
@@ -72,7 +72,7 @@ describe(
     );
 
     test(
-      "nested",
+      "Nested",
       async () => {
         await page.goto("http://localhost:8080/nested.html");
 
@@ -87,7 +87,7 @@ describe(
     );
 
     test(
-      "long events list",
+      "Long events list",
       async () => {
         await page.goto("http://localhost:8080/long-events-list.html");
 
