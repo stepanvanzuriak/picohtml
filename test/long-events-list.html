@@ -18,9 +18,9 @@
             el.innerHTML = "CHANGED"
         }
         const className = "test"
-        const el = html`<button class=${className} key=${className} onclick=${change} useless=${className + 12}>H</button>`
+        const e = html`<button class=${className} key=${className} onclick=${change} useless=${className + 12}>H</button>`
 
-        render(el, document.querySelector(".root"))
+        render(e, document.querySelector(".root"))
     </script>
 </body>
 

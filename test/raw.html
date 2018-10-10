@@ -14,9 +14,9 @@
     <script>
         const text = `<p>Text</p>`;
         const htmlText = () => html`<p>HTML Text</p>`;
-        const el = html`<div class="test">${text}${raw(htmlText())}</div>`;
+        const e = html`<div class="test">${text}${raw(htmlText())}</div>`;
 
-        render(el, document.body);
+        render(e, document.body);
     </script>
 </body>
 

@@ -9,17 +9,14 @@
 </head>
 
 <body>
-
     <div id="root"></div>
     <script src="../dist/picohtml.js"></script>
     <script>
-        const text = `<p>Text</p>`;
+        const innerText = `<p>Text</p>`;
         const htmlText = () => html`<p>HTML Text</p>`;
-        const el = html`<div>${text} ${raw(htmlText())}</div>`;
+        const e = html`<div>${innerText} ${raw(htmlText())}</div>`;
 
-        render(el, document.body);
-
-
+        render(e, document.body);
     </script>
 </body>
 
