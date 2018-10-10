@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
+    "gzip-size-cli": "^3.0.0",
     "http-server": "^0.11.1",
     "husky": "^1.0.0-rc.15",
     "jest": "^23.6.0",
@@ -29,11 +30,12 @@
   ],
   "scripts": {
     "dev": "parcel watch src/index.ts --out-file picohtml.js",
-    "build": "parcel build src/index.ts --out-file picohtml.js --experimental-scope-hoisting",
+    "build": "parcel build src/index.ts --out-file picohtml.js --experimental-scope-hoisting && npm run size",
     "clean": "rimraf dist",
     "clean:test": "rimraf test/picohtml.js",
     "build:test": "parcel build src/index.ts --out-dir test --out-file picohtml.js --experimental-scope-hoisting",
     "test": "npm run clean:test && npm run build:test && jest",
+    "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size dist/picohtml.js",
     "prepublish": "npm run test && npm run clean && npm run build"
   },
   "husky": {
