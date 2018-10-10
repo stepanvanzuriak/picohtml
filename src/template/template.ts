@@ -5,7 +5,7 @@ class Template {
   public result: string;
   public events: Events;
   public isRaw: boolean;
-  private lit: string[];
+  public lit: string[];
 
   constructor(literal: string[], values: any[]) {
     this.lit = literal;
@@ -20,6 +20,11 @@ class Template {
       this._update(values);
       return false;
     }
+    return true;
+  }
+
+  public checkLiteral(lit: string[]) {
+    return same(lit, this.lit);
   }
 
   public getResult() {
