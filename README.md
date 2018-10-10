@@ -1,6 +1,6 @@
 # PICOHTML
 
-~3KB HTML template strings
+<h2 align="center">Powerfully <b>~2kB (gzip)</b> HTML template strings</h2>
 
 # Installation
 
