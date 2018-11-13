@@ -30,6 +30,7 @@
   ],
   "scripts": {
     "dev": "parcel watch src/index.ts --out-file picohtml.js",
+    "dev:test": "parcel watch src/index.ts --out-dir test --out-file picohtml.js",
     "build": "parcel build src/index.ts --out-file picohtml.js --experimental-scope-hoisting && npm run size",
     "clean": "rimraf dist",
     "clean:test": "rimraf test/picohtml.js",
