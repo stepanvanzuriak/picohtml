@@ -60,7 +60,7 @@ class Template {
 
       this.result += lit;
 
-      if (lit.endsWith("=")) {
+      if (lit.endsWith("=") || lit.endsWith('="')) {
         if (
           lit
             .split(" ")
@@ -70,7 +70,15 @@ class Template {
           this.events.push(val);
         }
 
-        this.result += `"${replace(val.toString(), ["'", '"'], [`\'`, `'`])}"`;
+        const replacedVal = replace(val.toString(), ["'", '"'], [`\'`, `'`]);
+
+        if (lit.endsWith("=")) {
+          this.result += `"${replacedVal}"`;
+        }
+
+        if (lit.endsWith('="')) {
+          this.result += `${replacedVal}`;
+        }
       } else {
         this.result += val;
       }
