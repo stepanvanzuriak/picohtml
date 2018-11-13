@@ -17,86 +17,63 @@ afterAll(() => {
   browser.close();
 }, 20000);
 
-describe(
-  "Tests",
-  async () => {
-    test(
-      "Basic",
-      async () => {
-        page = await browser.newPage();
-        await page.goto("http://localhost:8080/basic.html");
+describe("Tests", async () => {
+  test("Basic", async () => {
+    page = await browser.newPage();
+    await page.goto("http://localhost:8080/basic.html");
 
-        html = await page.$eval(".header", e => e.innerHTML);
+    html = await page.$eval(".header", e => e.innerHTML);
 
-        expect(html).toBe("Hello planet");
-      },
-      20000
+    expect(html).toBe("Hello planet");
+  }, 20000);
+
+  test("Onclick", async () => {
+    await page.goto("http://localhost:8080/onclick.html");
+    await page.click(".btn");
+
+    html = await page.$eval(".test", e => e.innerHTML);
+    expect(html).toBe("Test");
+  }, 20000);
+
+  test("Mutlirender", async () => {
+    await page.goto("http://localhost:8080/mutlirender.html");
+
+    test = await page.$eval(".test", e => e.innerHTML);
+    test2 = await page.$eval(".test2", e => e.innerHTML);
+
+    expect(test).toBe("12");
+    expect(test2).toBe("14");
+  }, 20000);
+
+  test("Raw", async () => {
+    await page.goto("http://localhost:8080/raw.html");
+    html = await page.$eval(".test", e => e.innerHTML);
+    expect(html.trim()).toBe(
+      `<p>Text</p>
+<!-- RAW_START -->
+
+          <p>HTML Text</p>
+        
+<!-- RAW_END -->`
     );
+  }, 20000);
 
-    test(
-      "Onclick",
-      async () => {
-        await page.goto("http://localhost:8080/onclick.html");
-        await page.click(".btn");
+  test("Nested", async () => {
+    await page.goto("http://localhost:8080/nested.html");
 
-        html = await page.$eval(".test", e => e.innerHTML);
-        expect(html).toBe("Test");
-      },
-      20000
-    );
+    html = await page.$eval(".test", e => e.innerHTML);
+    expect(html).toBe("EMPTY");
 
-    test(
-      "Mutlirender",
-      async () => {
-        await page.goto("http://localhost:8080/mutlirender.html");
+    await page.click(".click");
+    html = await page.$eval(".test", e => e.innerHTML);
+    expect(html).toBe("YES");
+  }, 20000);
 
-        test = await page.$eval(".test", e => e.innerHTML);
-        test2 = await page.$eval(".test2", e => e.innerHTML);
+  test("Long events list", async () => {
+    await page.goto("http://localhost:8080/long-events-list.html");
 
-        expect(test).toBe("12");
-        expect(test2).toBe("14");
-      },
-      20000
-    );
-
-    test(
-      "Raw",
-      async () => {
-        await page.goto("http://localhost:8080/raw.html");
-        html = await page.$eval(".test", e => e.innerHTML);
-        expect(html).toBe(
-          "<p>Text</p>\n<!-- RAW_START -->\n<p>HTML Text</p>\n<!-- RAW_END -->\n"
-        );
-      },
-      20000
-    );
-
-    test(
-      "Nested",
-      async () => {
-        await page.goto("http://localhost:8080/nested.html");
-
-        html = await page.$eval(".test", e => e.innerHTML);
-        expect(html).toBe("EMPTY");
-
-        await page.click(".click");
-        html = await page.$eval(".test", e => e.innerHTML);
-        expect(html).toBe("YES");
-      },
-      20000
-    );
-
-    test(
-      "Long events list",
-      async () => {
-        await page.goto("http://localhost:8080/long-events-list.html");
-
-        await page.click(".test");
-        html = await page.$eval(".change", e => e.innerHTML);
-        expect(html).toBe("CHANGED");
-      },
-      2000
-    );
-  },
-  20000
-);
+    await page.click(".test");
+    html = await page.$eval(".change", e => e.innerHTML);
+    expect(html).toBe("CHANGED");
+  }, 2000);
+}, 20000);
