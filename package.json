@@ -1,6 +1,6 @@
 {
   "name": "picohtml",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "HTML template strings",
   "main": "./dist/picohtml.js",
   "repository": "https://github.com/stepanvanzuriak/picohtml",
