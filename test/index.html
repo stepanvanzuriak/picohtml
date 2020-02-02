@@ -11,6 +11,8 @@
     <div id="root"></div>
     <script src="../dist/picohtml.js"></script>
     <script>
+      const { html, render, raw } = picohtml;
+
       const innerText = `<p>Text</p>`;
       const htmlText = () =>
         html`

@@ -13,21 +13,23 @@
 
     <script src="picohtml.js"></script>
     <script>
-      const f = num =>
+      const { html, render, raw } = picohtml;
+
+      const f = (num) =>
         html`
           <p class="test">${num}</p>
         `;
-      const f2 = num =>
+      const f2 = (num) =>
         html`
           <p class="test2">${num}</p>
         `;
 
-      render(f(12), document.querySelector("#root"));
-      render(f(12), document.querySelector("#root"));
+      render(f(12), document.querySelector('#root'));
+      render(f(12), document.querySelector('#root'));
 
-      render(f2(12), document.querySelector("#toor"));
-      render(f2(13), document.querySelector("#toor"));
-      render(f2(14), document.querySelector("#toor"));
+      render(f2(12), document.querySelector('#toor'));
+      render(f2(13), document.querySelector('#toor'));
+      render(f2(14), document.querySelector('#toor'));
     </script>
   </body>
 </html>

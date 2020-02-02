@@ -12,11 +12,13 @@
     <p class="change"></p>
     <script src="./picohtml.js"></script>
     <script>
+      const { html, render, raw } = picohtml;
+
       const change = () => {
-        let el = document.querySelector(".change");
-        el.innerHTML = "CHANGED";
+        let el = document.querySelector('.change');
+        el.innerHTML = 'CHANGED';
       };
-      const className = "test";
+      const className = 'test';
       const e = html`
         <button
           class="${className}"
@@ -28,7 +30,7 @@
         </button>
       `;
 
-      render(e, document.querySelector(".root"));
+      render(e, document.querySelector('.root'));
     </script>
   </body>
 </html>

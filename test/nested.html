@@ -11,9 +11,11 @@
     <script src="picohtml.js"></script>
 
     <script>
+      const { html, render, raw } = picohtml;
+
       const changeP = () => {
-        const e = document.querySelector(".test");
-        e.innerHTML = "YES";
+        const e = document.querySelector('.test');
+        e.innerHTML = 'YES';
       };
 
       const e = () =>

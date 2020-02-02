@@ -11,9 +11,11 @@
     <script src="picohtml.js"></script>
 
     <script>
-      const p = document.createElement("p");
-      p.className = "test";
-      p.innerHTML = "Test";
+      const { html, render, raw } = picohtml;
+
+      const p = document.createElement('p');
+      p.className = 'test';
+      p.innerHTML = 'Test';
 
       const click = () => document.body.appendChild(p);
 
