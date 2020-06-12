@@ -1,5 +1,12 @@
 const puppeteer = require('puppeteer');
 const httpServer = require('http-server');
+const fs = require('fs');
+const path = require('path');
+
+fs.copyFileSync(
+  path.resolve(__dirname, '../dist/picohtml.js'),
+  path.resolve(__dirname, './picohtml.js'),
+);
 
 let browser;
 let page;

@@ -9,15 +9,17 @@
   "private": false,
   "devDependencies": {
     "gzip-size-cli": "^3.0.0",
-    "http-server": "^0.11.1",
-    "husky": "^1.0.0-rc.15",
-    "jest": "^24.8.0",
-    "jest-cli": "^24.8.0",
-    "parcel": "^1.12.4",
-    "puppeteer": "^1.18.1",
-    "rimraf": "^2.6.2",
-    "tslint": "^5.11.0",
-    "typescript": "^3.0.3"
+    "http-server": "^0.12.3",
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "jest-cli": "^26.0.1",
+    "puppeteer": "^3.3.0",
+    "rimraf": "^3.0.2",
+    "ts-loader": "^7.0.5",
+    "tslint": "^6.1.2",
+    "typescript": "^3.0.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
   "typings": "picohtml.d.ts",
   "keywords": [
@@ -29,12 +31,11 @@
     "template-string"
   ],
   "scripts": {
-    "dev": "parcel watch src/index.ts --out-file picohtml.js",
-    "dev:test": "parcel watch src/index.ts --out-dir test --out-file picohtml.js",
-    "build": "parcel build src/index.ts --out-file picohtml.js --experimental-scope-hoisting --global picohtml && npm run size",
+    "dev": "webpack --watch --mode 'development' ",
+    "build": "webpack --mode 'production' && npm run size",
     "clean": "rimraf dist",
     "clean:test": "rimraf test/picohtml.js",
-    "build:test": "parcel build src/index.ts --out-dir test --out-file picohtml.js --experimental-scope-hoisting --global picohtml",
+    "build:test": "npm run build",
     "test": "npm run clean:test && npm run build:test && jest",
     "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size dist/picohtml.js",
     "prepublish": "npm run test && npm run clean && npm run build"

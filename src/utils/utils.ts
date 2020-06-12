@@ -5,7 +5,7 @@ let rawEvents = [];
 const loopDOMAttributes = (
   dom: Element,
   callback: (name, dom, raw?) => void,
-  raw = false
+  raw = false,
 ) => {
   const attrs = dom.attributes;
 
@@ -13,7 +13,7 @@ const loopDOMAttributes = (
     for (let i = 0; i < attrs.length; i++) {
       const name = attrs.item(i).name;
 
-      if (name.startsWith("on")) {
+      if (name.startsWith('on')) {
         dom.removeAttribute(name);
 
         callback(name.slice(2), dom, raw);
@@ -21,14 +21,15 @@ const loopDOMAttributes = (
     }
   }
 
-  dom.childNodes.forEach(child => {
+  dom.childNodes.forEach((child) => {
     if (child.nodeType === 1 || child.nodeType === 8) {
       if (child.nodeType === 8) {
-        if (child.data.trim() === "RAW_START") {
+        // @ts-ignore
+        if (child.data.trim() === 'RAW_START') {
           raw = true;
         }
-
-        if (child.data.trim() === "RAW_END") {
+        // @ts-ignore
+        if (child.data.trim() === 'RAW_END') {
           raw = false;
         }
       }
@@ -37,7 +38,7 @@ const loopDOMAttributes = (
   });
 };
 
-export const addToRawEvents = events => {
+export const addToRawEvents = (events) => {
   rawEvents = [...rawEvents, ...events];
 };
 
@@ -46,7 +47,7 @@ export const getRawEvents = () => rawEvents;
 export const replace = (str: string, from: string[], to: string[]) => {
   let newString = str;
   from.map((e, i) => {
-    newString = newString.replace(new RegExp(e, "g"), to[i]);
+    newString = newString.replace(new RegExp(e, 'g'), to[i]);
   });
 
   return newString;
@@ -64,12 +65,12 @@ export const cleanNode = (node: Node) => {
 export const htmlEscape = (str: string) =>
   replace(
     str,
-    ["&", ">", "<", '"', "'", "`"],
-    ["&amp;", "&gt;", "&quot;", "&#39;", "&#39;", "&#96;"]
+    ['&', '>', '<', '"', "'", '`'],
+    ['&amp;', '&gt;', '&quot;', '&#39;', '&#39;', '&#96;'],
   );
 
 export const toDOM = (html: string, events: Events) => {
-  const template = document.createElement("template");
+  const template = document.createElement('template');
   template.innerHTML = html.trim();
 
   loopDOMAttributes(
@@ -80,9 +81,9 @@ export const toDOM = (html: string, events: Events) => {
       element.addEventListener(
         name,
         // tslint:disable-next-line:no-empty
-        typeof event !== "function" ? () => {} : event
+        typeof event !== 'function' ? () => {} : event,
       );
-    }
+    },
   );
 
   return first(template.content);

@@ -1,7 +1,9 @@
 interface Window {
-  html: any;
-  render: any;
-  raw: any;
+  picohtml: {
+    html: any;
+    render: any;
+    raw: any;
+  };
 }
 
-type Events = Array<((args: any) => any)>;
+type Events = Array<(args: any) => any>;
